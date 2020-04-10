@@ -30,7 +30,7 @@ Display Sample of gameboard:
 3) **Display the gaming process**
      - Gameboard will be updated after each move from user
 
-4) **scoreboard** (4, 5 – store scoreboard in a separate file, display when called)
+4) **scoreboard** (4, 5 – store display scoreboard function in a separate file, retreive information when called)
      - We store the scores each time when the game is finished. The highest scores will be displayed on the ranking.
 
 ### Process
