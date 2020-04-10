@@ -35,12 +35,12 @@ Display Sample of gameboard:
 
 ### Process
 1) **Algorithm for moving decision**
-   a. easy difficulty: random movement of computer
-   b. hard difficulty: AI algorithm (Fitness function, A* search)
+* easy difficulty: random movement of computer
+* hard difficulty: AI algorithm (Fitness function, A* search)
 We find out the best move for the computer using the A* search for the hard level
 
 2) **Randomize the resources allocation and adventurers’ location** (1 – Randomization)
-Number of resources and location of the adventurers will be randomized but ensuring there will be resources in the board
+- Number of resources and location of the adventurers will be randomized but ensuring there will be resources in the board
 
 3) **Update score counting system**
-Scores will be updated after each move to let players know the current scores of themselves and the computer
+- Scores will be updated after each move to let players know the current scores of themselves and the computer
