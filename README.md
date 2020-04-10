@@ -3,7 +3,7 @@
 Group members: Kwok Ka Ho (3035689142), Lo Sai Kwan (3035686188)
 
 ## Description
-We are planning to make a competitive hunting game. It can be 1 player vs. computer or PVP. The adventurers battle on a n x n square gameboard, Resources are generated randomly on it. Players can control their character and get the resources on the gameboard. Each type of resource (Diamond/Gold/Silver/Bronze) carries different points. The game ends once all resources have been collected. The player who gets the most points wins the set, the first player who gets two sets wins the game. Scores of winners will be permanently stored in a scoreboard table.
+We are planning to make a competitive hunting game. Two game modes are available, 1 player vs. computer or PVP. The adventurers battle on a n x n square gameboard, Resources are generated randomly on it. Players can control their characters and get the resources on the gameboard. Each type of resource (Diamond/Gold/Silver/Bronze) carries different points. The game ends once all resources have been collected. The player who gets the most points wins the set, the first player who gets two sets wins the game. Scores of winners will be permanently stored in a scoreboard table.
 
 Display Sample of gameboard:
 ![image](Display_view.png)
@@ -15,10 +15,10 @@ Display Sample of gameboard:
      - User can decide the gameboard size on their own (at least 5x5, at most 25x25)
 
 2) **Difficulty (easy, hard), number of players (PVP/ Person vs. Computer)**
-     - Easy mode will let the bot move randomly; hard mode will make the bot moves base on the ai algorithm we designed
+     - Easy mode will let the bot move randomly; hard mode will make the bot moves base on the ai algorithm we design
 
 3) **Username of adventurer** (2 - the adventurers contain two attributes (Username, score))
-     - Players input their usernames for game purposes. We apply the data structures here (an array with string username and int score) 
+     - Players input their usernames for gaming and storage purposes. We apply the data structures here (an array with string username and int score) 
 
 ### Output
 1) **Display Game Rules** (4,5 – store instructions in a separate file, display when called) 
