@@ -33,7 +33,7 @@ Display Sample of gameboard:
 4) **scoreboard** (4, 5 – store display scoreboard function in a separate file, retreive information when called)
      - We store the scores each time when the game is finished. The highest scores will be displayed on the ranking.
 
-### Process
+### Process (5 - store the AI algorithm code into seperated file)
 1) **Algorithm for moving decision**
      * easy difficulty: random movement of computer
      * hard difficulty: AI algorithm (Fitness function, A* search)
