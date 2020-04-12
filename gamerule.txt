@@ -1,0 +1,26 @@
+Golden rush!
+Game Rule
+
+Hi adventurer! Welcome to the Golden Rush! World.
+
+One day, you went to bed and sleep as a usual night. A few moments later, you realize that you have got into the world of jewellery. It's full of Diamond, Gold, Silver, and Bronze on the floor! You will want to pick them up faster than the other adventurer! There are a few points you should be aware of:
+
+1. First, enter your username and choose the difficulty (easy/hard), your
+   username is used for scoreboard uses.
+
+2. The initial location of the adventurers and jewellery are randomized
+   Each adventurer can make one move round by round, one after another, by clicking the 'WASD' buttons on your keyboard.
+
+3. When you reach the location where the jewellery stores at, you get the
+   points according to the type of it.
+
+  Diamond: 100 points
+  Gold:    50 points
+  Silver:  20 points
+  Bronze:  10 points
+
+4. Each round of the game is called a set. The game ends when there is no jewellery left on the map. The total score of each adventurer will be recorded for that round and accumulate with all the other sets. The first adventurer who scores higher in two sets wins the game.
+
+5. We store the most recent ten records of the game to the scoreboard and save the top 3 adventurers who got the highest score in history.
+
+We hope you all can enjoy the game and grab your jewellery at ease!
