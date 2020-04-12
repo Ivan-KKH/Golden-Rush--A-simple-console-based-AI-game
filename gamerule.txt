@@ -9,7 +9,7 @@ One day, you go to bed and sleep as a usual night. A few moments later, you real
    username is the name of your adventurer.
 
 2. The initial location of the adventurers and jewellery are randomized
-   Each adventurer can make one move round by round, one after another, by clicking the 'W,A,S,D' buttons on your keyboard to    go up, left, down, right respectively.
+   Each adventurer can make one move round by round, one after another, by clicking the 'W,A,S,D' buttons on your keyboard to go up, left, down, right respectively.
 
 3. When you reach the location where the jewellery is located at, you get the
    points according to the type of jewellery.
