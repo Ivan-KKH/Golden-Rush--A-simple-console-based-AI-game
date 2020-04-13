@@ -4,5 +4,18 @@
 #include <iostream>
 
 #endif
-int board_size;
-void Create_Gameboard(char**,int);
+
+using namespace std;
+
+void Create_Gameboard(char** board, int board_size){
+  for (int i = 0; i < board_size + 2;i++) {
+    for (int j = 0;j < board_size + 2;j++) {
+      if (i == 0||i == board_size + 1)
+          board[i][j] = 'x';
+      else if (j == 0||j == board_size +1)
+          board[i][j] = 'x';
+      else
+        board[i][j] = ' ';
+    }
+  }
+}

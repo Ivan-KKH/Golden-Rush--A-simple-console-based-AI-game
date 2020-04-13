@@ -3,6 +3,7 @@
 #include "Create_Gameboard.h"
 #include "Display_Gameboard.h"
 #include "Display_Gamerule.h"
+#include "Player_Movement_Control.h"
 using namespace std;
 
 
@@ -15,12 +16,13 @@ int main() {
     if (board_size < 5||board_size > 25)
       cout << "The range for the board size is 5x5 to 25x25, please enter the size again" << endl;
   }
-  cin >> board_size;
   char** board = new char*[board_size+2];
   for (int i = 0;i < board_size + 2;i++)
     board[i] = new char[board_size+2];
   Create_Gameboard(board, board_size);
+  Display_Gameboard(board, board_size);
+  Player_Movement_Control();
   cin >> username_1;
-  system("CLS");
+  delete [] board;
   return 0;
 }
