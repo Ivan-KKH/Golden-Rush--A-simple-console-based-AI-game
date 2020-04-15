@@ -6,8 +6,6 @@
 
 #endif
 
-using namespace std;
-
 #define ARROW_UP 72
 #define ARROW_DOWN 80
 #define ARROW_LEFT 75
@@ -20,7 +18,7 @@ char Player_Movement_Control() {
     int intInput = charInput;
     switch (charInput) {
       case ARROW_UP:
-          return 'u';
+          cout << "up" << endl;
           break;
       case ARROW_DOWN:
           return 'd';
@@ -47,4 +45,3 @@ char Player_Movement_Control() {
       charInput = _getch();
       intInput = charInput;
     }
-}

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void Create_Gameboard(char** board, int board_size){
+void Create_Gameboard(char** board, int board_size){ //to create a gameboard of size n x n
   for (int i = 0; i < board_size + 2;i++) {
     for (int j = 0;j < board_size + 2;j++) {
       if (i == 0||i == board_size + 1)
@@ -18,4 +18,8 @@ void Create_Gameboard(char** board, int board_size){
         board[i][j] = ' ';
     }
   }
+}
+
+void Random_Resource_Location() {
+
 }
