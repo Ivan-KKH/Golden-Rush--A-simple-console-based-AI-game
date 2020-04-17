@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void Display_Gamerule() {
+void Display_Gamerule() {                  //to display the gamerule
   string s;
   ifstream fin;
   fin.open("gamerule.txt");
@@ -20,7 +20,7 @@ void Display_Gamerule() {
   while (getline(fin,s))
     cout << s << endl;
   fin.close();
-}
+}                                           //end
 
 int main() {
   int board_size = 0,difficulty;
@@ -57,7 +57,7 @@ int main() {
         if (resource[i].x == resource[j].x && resource[i].y == resource[j].y)
           found = true;
     }
-  }                                                 //end
+  }                                                      //end
 
   Create_Gameboard(board, board_size);
   Display_Gameboard(board, board_size);
