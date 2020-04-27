@@ -6,7 +6,6 @@
 #include <fstream>
 #include "Create_Gameboard.h"
 #include "Display_Gameboard.h"
-#include "Player_Movement_Control.h"
 
 using namespace std;
 
@@ -42,7 +41,7 @@ int main() {
   number_of_resources = rand() % number_of_resources + board_size * board_size * 0.2;                                                      //End
 
   struct coord {
-    int x,y;
+    int x,y,type;
   };
   coord resource[number_of_resources];
   resource[0].x = rand() % (board_size + 1); //to allocate the resources onto the map
@@ -56,16 +55,11 @@ int main() {
       for (int j = 0;j <= i - 1;j++)
         if (resource[i].x == resource[j].x && resource[i].y == resource[j].y)
           found = true;
-    }
+    }   // resources
   }                                                      //end
 
   Create_Gameboard(board, board_size);
   Display_Gameboard(board, board_size);
-  char move = Player_Movement_Control();
-  while (true) {
-    cout << move << endl;
-    move = Player_Movement_Control();
-  }
   system("PAUSE");
   Display_Gamerule();
   delete [] board;

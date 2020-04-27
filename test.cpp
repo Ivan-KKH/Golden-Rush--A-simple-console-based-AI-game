@@ -1,31 +1,52 @@
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <ctime>
+#define _XOPEN_SOURCE 700
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <termios.h>
+#include <time.h>
 
-using namespace std;
+int getkey() {
+    int character;
+    struct termios orig_term_attr;
+    struct termios new_term_attr;
 
-int main() {
-  int board_size = 5;
-  srand(time(NULL));       //to randomize the number of resources on the board
-  int number_of_resources = (0.2*board_size * board_size + 1);
-  number_of_resources = rand() % number_of_resources + board_size * board_size * 0.2;
-  struct coordinate {
-    int x,y;
-  };
+    /* set the terminal to raw mode */
+    tcgetattr(fileno(stdin), &orig_term_attr);
+    memcpy(&new_term_attr, &orig_term_attr, sizeof(struct termios));
+    new_term_attr.c_lflag &= ~(ECHO|ICANON);
+    new_term_attr.c_cc[VTIME] = 0;
+    new_term_attr.c_cc[VMIN] = 0;
+    tcsetattr(fileno(stdin), TCSANOW, &new_term_attr);
 
-  coordinate resource[number_of_resources];
-  resource[0].x = rand() % (board_size + 1); //to allocate the resources onto the map
-  resource[0].y = rand() % (board_size + 1);
-  for (int i = 1; i < number_of_resources;i++) {
-    int found = true;
-    while (found == true) {
-      resource[i].x = rand() % (board_size + 1);
-      resource[i].y = rand() % (board_size + 1);
-      found = false;
-      for (int j = 0;j <= i - 1;j++)
-        if (resource[i].x == resource[j].x && resource[i].y == resource[j].y)
-          found = true;
+    /* read a character from the stdin stream without blocking */
+    /*   returns EOF (-1) if no character is available */
+    character = fgetc(stdin);
+
+    /* restore the original terminal attributes */
+    tcsetattr(fileno(stdin), TCSANOW, &orig_term_attr);
+
+    return character;
+}
+
+int main()
+{
+    int key;
+
+    /* initialize the random number generator */
+    srand(time(NULL));
+
+    for (;;) {
+        key = getkey();
+        /* terminate loop on ESC (0x1B) or Ctrl-D (0x04) on STDIN */
+        if (key == 0x1B || key == 0x04) {
+            break;
+        }
+        else {
+            /* print random ASCII character between 0x20 - 0x7F */
+            key = (rand() % 0x7F);
+            printf("%c", ((key < 0x20) ? (key + 0x20) : key));
+        }
     }
-  }
+
+    return 0;
 }
