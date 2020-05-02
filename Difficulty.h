@@ -7,18 +7,20 @@
 
 using namespace std;
 
-void Choose_difficulty(string input){
-  if (input == "easy"){
-    cout << "easy" << endl;
-  }
-  if (input == "hard"){
-    cout << "hard" << endl;
-  }
+void Easy_mode(){
+
 }
 
-// #ifndef DIFFICULTY_H
-// #define DIFFICULTY_H
-//
-// void Choose_difficulty(string input);
-//
-// #endif
+void Hard_mode(){
+
+}
+
+// void Choose_difficulty(string input){
+//   if (input == "easy"){
+//     // cout << "easy" << endl;
+//     Easy_mode
+//   }
+//   if (input == "hard"){
+//     // cout << "hard" << endl;
+//   }
+// }
