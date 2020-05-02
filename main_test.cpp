@@ -18,7 +18,7 @@ struct Player{
 Player p1;
 
 int main(){
-  
+
   string input_difficulty;
   string username;
   bool select_difficulty = true;
@@ -41,7 +41,7 @@ int main(){
       break;
     }
     else{
-      cout << "invalid input" << endl;
+      cout << "invalid input, please select again." << endl;
     }
   }
   // cout << Display_Username(username) << endl;
