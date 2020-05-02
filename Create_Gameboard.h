@@ -19,7 +19,3 @@ void Create_Gameboard(char** board, int board_size){ //to create a gameboard of 
     }
   }
 }
-
-void Random_Resource_Location() {
-  
-}
