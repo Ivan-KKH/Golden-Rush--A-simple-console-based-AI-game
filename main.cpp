@@ -1,6 +1,22 @@
 #include <iostream>
 #include <stdlib.h>
 #include <cstdlib>
+<<<<<<< HEAD
+
+using namespace std;
+
+struct Player(){
+  int x, y, score;
+  string username;
+
+}
+
+int main(){
+  // system("CLS");
+  string u;
+  cin >> u;
+  if (system("CLS")) system("clear");
+=======
 #include <ctime>
 #include <string>
 #include <fstream>
@@ -100,5 +116,6 @@ int main() {
   system("PAUSE");
   Display_Gamerule();
   delete [] board;
+>>>>>>> a99dffc8634520cc0e0f05cfcb4c8716f0863968
   return 0;
 }
