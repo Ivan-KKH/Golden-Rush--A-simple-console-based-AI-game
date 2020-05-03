@@ -1,29 +1,64 @@
 #include <iostream>
 #include <stdlib.h>
 #include <cstdlib>
-<<<<<<< HEAD
-
-using namespace std;
-
-struct Player(){
-  int x, y, score;
-  string username;
-
-}
-
-int main(){
-  // system("CLS");
-  string u;
-  cin >> u;
-  if (system("CLS")) system("clear");
-=======
 #include <ctime>
 #include <string>
 #include <fstream>
 #include "Create_Gameboard.h"
 #include "Display_Gameboard.h"
+#include "GUI.h"
 
 using namespace std;
+
+struct player { //create a player structure
+  int x,y,score;
+  string username;
+};
+player p1,p2;
+
+struct coord {
+  int x,y;
+  char type;
+};
+
+bool Check_endgame(coord * resource,int number_of_resources){
+  for (int i = 0; i < number_of_resources;i++)
+    if (resource[i].type != '\0')
+      return false;
+  return true;
+}
+
+bool Movement_valid(char player_movement, player p1,player p2, int who_move, int board_size){   //cannot overlap with another player, cannot step out of boundary
+  int new_p1_x, new_p1_y, new_p2_x, new_p2_y;
+
+  if ( who_move == 1){
+    if (player_movement == 'w')
+      new_p1_y = p1.y-1;
+    if (player_movement == 's')
+      new_p1_y = p1.y+1;
+    if (player_movement == 'a')
+      new_p1_x = p1.x-1;
+    if (player_movement == 'd')
+      new_p1_x = p1.x+1;
+    if (new_p1_x <= 0 || new_p1_x >= board_size+1 || new_p1_y <= 0 || new_p1_y >= board_size)
+      return false;
+    return true;
+  }
+  else {
+    if (player_movement == 'w')
+      new_p2_y = p2.y-1;
+    if (player_movement == 's')
+      new_p2_y = p2.y+1;
+    if (player_movement == 'a')
+      new_p2_x = p2.x-1;
+    if (player_movement == 'd')
+      new_p2_x = p2.x+1;
+
+    if (new_p2_x <= 0 || new_p2_x >= board_size+1 || new_p2_y <= 0 || new_p2_y >= board_size)
+      return false;
+    return true;
+  }
+}
 
 void Display_Gamerule() {          //to display the gamerule
   string s;
@@ -37,9 +72,53 @@ void Display_Gamerule() {          //to display the gamerule
   fin.close();
 }                                                                       //end
 
+char easy_mode(){ // to implement the move of computer with easy mode
+  int decision = rand() % 4;
+  if (decision == 0)
+    return 'l';
+  else if (decision == 1)
+    return 'r';
+  else if (decision == 2)
+    return 'u';
+  else if (decision == 3)
+    return 'd';
+}
+
+char hard_mode(){
+  return '0';
+}
+
+
 int main() {
   int board_size = 0,difficulty;
-  string username_1,username_2;
+  // string username_1,username_2;
+
+  string input_difficulty;
+  bool select_difficulty = true;
+  string username;
+  cout << "Please input username: "; // get username
+  getline(cin, username);
+  p1.username = username;
+
+  while (select_difficulty){
+    cout << "Select difficulty: easy / hard" << endl;
+    cin >> input_difficulty;
+    if (input_difficulty == "easy"){
+      cout << "easy mode selected" << endl;
+      // easy_mode();
+      break;
+    }
+    else if  (input_difficulty == "hard"){
+      cout << "hard mode selected" << endl;
+      // hard_mode();
+      break;
+    }
+    else{
+      cout << "invalid input, please select again." << endl;
+    }
+  }
+
+  Clear_Screen();
 
   while (board_size < 5 ||board_size > 25) { //To repeatedly request the size of gameboard until it reaches the acceptable range(5-25)
     cout << "Please enter a number n(5-25) to determine the size n x n board" << endl;
@@ -47,6 +126,8 @@ int main() {
     if (board_size < 5||board_size > 25)
       cout << "The range for the board size is 5x5 to 25x25, please enter the size again" << endl;
   }                                                                //end
+
+  Clear_Screen();
 
   char** board = new char*[board_size+2];    //to create the board array
   for (int i = 0;i < board_size + 2;i++)
@@ -56,10 +137,6 @@ int main() {
   int number_of_resources = (0.2*board_size * board_size + 1);
   number_of_resources = rand() % number_of_resources + board_size * board_size * 0.2;
 
-  struct coord {
-    int x,y;
-    char type;
-  };
   coord* resource = new coord[number_of_resources];
   int type_generator = rand() % 10;
   for (int i = 0; i < number_of_resources;i++) {
@@ -88,10 +165,7 @@ int main() {
     cout << resource[i].x << " " << resource[i].y << " " << resource[i].type << endl;
     board[resource[i].y + 1][resource[i].x + 1] = resource[i].type;
   }
-  struct player { //create a player structure
-    int x,y,score;
-  };
-  player p1,p2;
+
   int found = true;
   while (found == true) {
     found = false;
@@ -112,10 +186,19 @@ int main() {
   }
   board[p1.y + 1][p2.x + 1] = '1';
   board[p2.y + 1][p2.x + 1] = '2';
-  Display_Gameboard(board, board_size);
+  char player_movement;
+  while (Check_endgame(resource,number_of_resources) == false) {
+    Display_Gameboard(board, board_size);
+    cout << "please enter your movement (w/a/s/d)" << endl;
+    cin >> player_movement;
+    while (Movement_valid(player_movement,p1,p2,1,board_size) == false) {
+      cout << "invalid movement, please choose again!" << endl;
+      cin >> player_movement;
+    }
+  }
+
   system("PAUSE");
-  Display_Gamerule();
   delete [] board;
->>>>>>> a99dffc8634520cc0e0f05cfcb4c8716f0863968
+  delete [] resource;
   return 0;
 }
