@@ -28,37 +28,65 @@ bool Check_endgame(coord * resource,int number_of_resources){
   return true;
 }
 
-bool Movement_valid(char player_movement, player p1,player p2, int who_move, int board_size){   //cannot overlap with another player, cannot step out of boundary
+bool Movement_valid(char player_movement, player &p1,player &p2, int who_move, int board_size, char** board){   //cannot overlap with another player, cannot step out of boundary, and update the board if valid
   int new_p1_x, new_p1_y, new_p2_x, new_p2_y;
-
   if ( who_move == 1){
-    if (player_movement == 'w')
+    if (player_movement == 'w') {
       new_p1_y = p1.y-1;
-    if (player_movement == 's')
+      new_p1_x = p1.x;
+    }
+    if (player_movement == 's') {
       new_p1_y = p1.y+1;
-    if (player_movement == 'a')
+      new_p1_x = p1.x;
+    }
+    if (player_movement == 'a') {
       new_p1_x = p1.x-1;
-    if (player_movement == 'd')
+      new_p1_y = p1.y;
+    }
+    if (player_movement == 'd') {
       new_p1_x = p1.x+1;
-    if (new_p1_x <= 0 || new_p1_x >= board_size+1 || new_p1_y <= 0 || new_p1_y >= board_size)
+      new_p1_y = p1.y;
+    }
+    if (new_p1_x < 0 || new_p1_x >= board_size || new_p1_y < 0 || new_p1_y >= board_size||(new_p1_x == p2.x&&new_p1_y == p2.y))
       return false;
+    else{
+      board[p1.y+1][p1.x+1] = '\0';
+      board[new_p1_y+1][new_p1_x+1] = '1';
+      p1.y = new_p1_y;
+      p1.x = new_p1_x;
+    }
     return true;
   }
-  else {
-    if (player_movement == 'w')
-      new_p2_y = p2.y-1;
-    if (player_movement == 's')
-      new_p2_y = p2.y+1;
-    if (player_movement == 'a')
-      new_p2_x = p2.x-1;
-    if (player_movement == 'd')
-      new_p2_x = p2.x+1;
-
-    if (new_p2_x <= 0 || new_p2_x >= board_size+1 || new_p2_y <= 0 || new_p2_y >= board_size)
+    if ( who_move == 2){
+      if (player_movement == 'w') {
+        new_p2_y = p2.y-1;
+        new_p2_x = p2.x;
+      }
+      if (player_movement == 's') {
+        new_p2_y = p2.y+1;
+        new_p2_x = p2.x;
+      }
+      if (player_movement == 'a') {
+        new_p2_x = p2.x-1;
+        new_p2_y = p2.y;
+      }
+      if (player_movement == 'd') {
+        new_p2_x = p2.x+1;
+        new_p2_y = p2.y;
+      }
+    if (new_p2_x < 0 || new_p2_x >= board_size || new_p2_y < 0 || new_p2_y >= board_size||(new_p2_x == p1.x&&new_p2_y == p1.y))
       return false;
-    return true;
+      else{
+        board[p2.y + 1][p2.x + 1] = '\0';
+        board[new_p1_y +1][new_p1_x +1] = '2';
+        p2.y = new_p2_y;
+        p2.x = new_p2_x;
+      }
+      return true;
   }
 }
+
+
 
 void Display_Gamerule() {          //to display the gamerule
   string s;
@@ -125,7 +153,7 @@ int main() {
     cin >> board_size;
     if (board_size < 5||board_size > 25)
       cout << "The range for the board size is 5x5 to 25x25, please enter the size again" << endl;
-  }                                                                //end
+  }
 
   Clear_Screen();
 
@@ -184,19 +212,27 @@ int main() {
       }
     }
   }
-  board[p1.y + 1][p2.x + 1] = '1';
+  board[p1.y + 1][p1.x + 1] = '1';
   board[p2.y + 1][p2.x + 1] = '2';
   char player_movement;
   while (Check_endgame(resource,number_of_resources) == false) {
     Display_Gameboard(board, board_size);
     cout << "please enter your movement (w/a/s/d)" << endl;
     cin >> player_movement;
-    while (Movement_valid(player_movement,p1,p2,1,board_size) == false) {
+    while (Movement_valid(player_movement,p1,p2,1,board_size,board) == false) {
       cout << "invalid movement, please choose again!" << endl;
       cin >> player_movement;
     }
-  }
+    for (int i=0; i < number_of_resources; i++){
+      if (p1.x == resource[i].x && p1.y == resource[i].y) {
+        resource[i].x = -1;
+        resource[i].y = -1;
+        resource[i].type = '\0';
+      }
+      }
 
+    }
+    Display_Gameboard(board,board_size);
   system("PAUSE");
   delete [] board;
   delete [] resource;

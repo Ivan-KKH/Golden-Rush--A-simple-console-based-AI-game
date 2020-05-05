@@ -1,6 +1,0 @@
-#ifndef USERNAME_DIFFICULTY_BOARDSIZE_INPUT_H_
-#define USERNAME_DIFFICULTY_BOARDSIZE_INPUT_H_
-
-#include <iostream>
-
-#endif
