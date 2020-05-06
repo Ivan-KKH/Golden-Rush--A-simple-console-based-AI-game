@@ -52,41 +52,8 @@ char easy_mode(){ // to implement the move of computer with easy mode
     return 'd';
 }
 
-int convert_score(char type) {
-  if (type == 'D')
-      return 100;
-  else if (type == 'G')
-      return 50;
-  else if (type == 'S')
-      return 20;
-  else if (type == 'B')
-      return 10;
-}
-
-char target_resource_hard_mode(coord* resource, int number_of_resources, player&p1, player&p2){
-  int manhatten_distance;
-  double point = 0;
-  double* point_arr = new double[number_of_resources];
-  for (int i = 0;i < number_of_resources; i++) {
-    manhatten_distance = abs(resource[i].x - p2.x) + abs(resource[i].y - p2.y);
-    point += convert_score(resource[i].type)/manhatten_distance;
-    for (int j = 0;j < number_of_resources; i++) {
-      if (j != i && resource[j].type != '\0') {
-          manhatten_distance = abs(resource[j].x - resource[i].x) + abs(resource[j].y - resource[i].y);
-          point += convert_score(resource[j].type)/manhatten_distance;
-      }
-    }
-    point_arr[i] = point;
-    point = 0;
-  }
-  double max_point = point_arr[0];
-  int max_point_index = 0;
-  for (int i = 0;i < number_of_resources; i++)
-    if (point_arr[i] > max_point) {
-      max_point = point_arr[i];
-      max_point_index = i;
-    }
-  return max_point_index;
+char hard_mode(){
+  return '0';
 }
 
 
@@ -346,7 +313,7 @@ void process(coord *resource, int number_of_resources, player &p1, player &p2, c
       if (difficulty == "easy")
         player_movement = easy_mode();
       if (difficulty == "hard")
-        player_movement = 'u';
+        player_movement = hard_mode();
     }
     else {
       cout << "please enter your movement (w/a/s/d)" << endl;
@@ -362,7 +329,7 @@ void process(coord *resource, int number_of_resources, player &p1, player &p2, c
           player_movement = easy_mode();
         }
         if (difficulty == "hard")
-          player_movement = 'u';
+          player_movement = hard_mode();
       }
       else {
         cout << "please enter your movement (w/a/s/d)" << endl;
@@ -371,13 +338,28 @@ void process(coord *resource, int number_of_resources, player &p1, player &p2, c
     }
     for (int i=0; i < number_of_resources; i++){
       if (p1.x == resource[i].x && p1.y == resource[i].y) {
-        p1.score += convert_score(resource[i].type);
+            if (resource[i].type == 'D')
+                p1.score = p1.score + 100;
+
+            else if (resource[i].type == 'G')
+                p1.score = p1.score + 50;
+            else if (resource[i].type == 'S')
+                p1.score = p1.score + 20;
+            else if (resource[i].type == 'B')
+                p1.score = p1.score + 10;
         resource[i].x = - 1;
         resource[i].y = - 1;
         resource[i].type = '\0';
       }
       if (p2.x == resource[i].x && p2.y == resource[i].y) {
-        p2.score += convert_score(resource[i].type);
+            if (resource[i].type == 'D')
+                p2.score = p2.score + 100;
+            else if (resource[i].type == 'G')
+                p2.score = p2.score + 50;
+            else if (resource[i].type == 'S')
+                p2.score = p2.score + 20;
+            else if (resource[i].type == 'B')
+                p2.score = p2.score + 10;
         resource[i].x = - 1;
         resource[i].y = - 1;
         resource[i].type = '\0';
