@@ -30,7 +30,7 @@ bool Check_endgame(coord * resource,int number_of_resources){
 
 bool Movement_valid(char player_movement, player &p1,player &p2, int who_move, int board_size, char** board){   //cannot overlap with another player, cannot step out of boundary, and update the board if valid
   int new_p1_x, new_p1_y, new_p2_x, new_p2_y;
-  if ( who_move == 1){
+  if ( who_move == 0){
     if (player_movement == 'w') {
       new_p1_y = p1.y-1;
       new_p1_x = p1.x;
@@ -57,7 +57,7 @@ bool Movement_valid(char player_movement, player &p1,player &p2, int who_move, i
     }
     return true;
   }
-    if ( who_move == 2){
+    if ( who_move == 1){
       if (player_movement == 'w') {
         new_p2_y = p2.y-1;
         new_p2_x = p2.x;
@@ -76,16 +76,29 @@ bool Movement_valid(char player_movement, player &p1,player &p2, int who_move, i
       }
     if (new_p2_x < 0 || new_p2_x >= board_size || new_p2_y < 0 || new_p2_y >= board_size||(new_p2_x == p1.x&&new_p2_y == p1.y))
       return false;
-      else{
-        board[p2.y + 1][p2.x + 1] = '\0';
-        board[new_p1_y +1][new_p1_x +1] = '2';
-        p2.y = new_p2_y;
-        p2.x = new_p2_x;
-      }
+    else{
+      board[p2.y + 1][p2.x + 1] = '\0';
+      board[new_p2_y +1][new_p2_x +1] = '2';
+      p2.y = new_p2_y;
+      p2.x = new_p2_x;
+    }
       return true;
   }
 }
 
+int who_go_first(){
+  int gen = rand() % 2;
+  if (gen == 0) {
+    cout << "player 1 go first" << endl;
+    return 0;
+  }
+  else {
+    cout << "player 2 go first" << endl;
+    return 1;
+  }
+  system("PAUSE");
+  Clear_Screen();
+}
 
 
 void Display_Gamerule() {          //to display the gamerule
@@ -103,11 +116,11 @@ void Display_Gamerule() {          //to display the gamerule
 char easy_mode(){ // to implement the move of computer with easy mode
   int decision = rand() % 4;
   if (decision == 0)
-    return 'l';
+    return 'w';
   else if (decision == 1)
-    return 'r';
+    return 'a';
   else if (decision == 2)
-    return 'u';
+    return 's';
   else if (decision == 3)
     return 'd';
 }
@@ -118,33 +131,49 @@ char hard_mode(){
 
 
 int main() {
-  int board_size = 0,difficulty;
+  int board_size = 0,number_of_player;
   // string username_1,username_2;
-
-  string input_difficulty;
-  bool select_difficulty = true;
-  string username;
-  cout << "Please input username: "; // get username
-  getline(cin, username);
-  p1.username = username;
-
-  while (select_difficulty){
-    cout << "Select difficulty: easy / hard" << endl;
-    cin >> input_difficulty;
-    if (input_difficulty == "easy"){
-      cout << "easy mode selected" << endl;
-      // easy_mode();
-      break;
+  string difficulty,nop,username;
+  bool select = true;
+  while (select){
+    cout << "How many player?(1/2)" << endl;
+    getline(cin,nop);
+    if (nop == "1") {
+      number_of_player = 1;
+      while (select){
+        cout << "You are player 1" << endl;
+        cout << "Please select the difficulty: easy / hard" << endl;
+        cin >> difficulty;
+        if (difficulty == "easy") {
+          cout << "easy mode selected" << endl;
+          select = false;
+          getline(cin, username);
+        }
+        else if  (difficulty == "hard") {
+          cout << "hard mode selected" << endl;
+          select = false;
+        }
+        else
+          cout << "invalid input, please select again." << endl;
+      }
+      cout << "Please input username: " << endl;
+      getline(cin, username);
+      p1.username = username;
+      p2.username = "bot";
     }
-    else if  (input_difficulty == "hard"){
-      cout << "hard mode selected" << endl;
-      // hard_mode();
-      break;
+    else if (nop == "2") {
+      number_of_player = 2;
+      cout << "Please input username of player 1";
+      getline(cin, username);
+      p1.username = username;
+      cout << "Please input username of player 2";
+      getline(cin, username);
+      p2.username = username;
+      select = false;
     }
-    else{
-      cout << "invalid input, please select again." << endl;
+    else
+      cout << "Invalid input, please enter 1/2 again" << endl;
     }
-  }
 
   Clear_Screen();
 
@@ -188,9 +217,8 @@ int main() {
         }
       }
   Create_Gameboard(board, board_size);
-  cout << number_of_resources << endl;
   for (int i = 0;i < number_of_resources;i++) {
-    cout << resource[i].x << " " << resource[i].y << " " << resource[i].type << endl;
+    //cout << resource[i].x << " " << resource[i].y << " " << resource[i].type << endl;
     board[resource[i].y + 1][resource[i].x + 1] = resource[i].type;
   }
 
@@ -215,24 +243,75 @@ int main() {
   board[p1.y + 1][p1.x + 1] = '1';
   board[p2.y + 1][p2.x + 1] = '2';
   char player_movement;
+  int turn = who_go_first();
   while (Check_endgame(resource,number_of_resources) == false) {
-    Display_Gameboard(board, board_size);
-    cout << "please enter your movement (w/a/s/d)" << endl;
-    cin >> player_movement;
-    while (Movement_valid(player_movement,p1,p2,1,board_size,board) == false) {
-      cout << "invalid movement, please choose again!" << endl;
+    cout << "player " << turn + 1 << " turn" << endl << endl;
+    Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
+    if (turn == 0) {
+      cout << "please enter your movement (w/a/s/d)" << endl;
       cin >> player_movement;
+    }
+    else if (turn == 1 && number_of_player == 1) {
+      if (difficulty == "easy")
+        player_movement = easy_mode();
+      if (difficulty == "hard")
+        player_movement = hard_mode();
+    }
+    else {
+      cout << "please enter your movement (w/a/s/d)" << endl;
+      cin >> player_movement;
+    }
+    while (Movement_valid(player_movement,p1,p2,turn,board_size,board) == false) {
+      if (turn == 0) {
+        cin >> player_movement;
+        cout << "invalid movement, please choose again!" << endl;
+      }
+      else if (turn == 1 && number_of_player == 1) {
+        if (difficulty == "easy") {
+          player_movement = easy_mode();
+        }
+        if (difficulty == "hard")
+          player_movement = hard_mode();
+      }
+      else {
+        cout << "please enter your movement (w/a/s/d)" << endl;
+        cin >> player_movement;
+      }
     }
     for (int i=0; i < number_of_resources; i++){
       if (p1.x == resource[i].x && p1.y == resource[i].y) {
-        resource[i].x = -1;
-        resource[i].y = -1;
+            if (resource[i].type == 'D')
+                p1.score = p1.score + 100;
+
+            else if (resource[i].type == 'G')
+                p1.score = p1.score + 50;
+            else if (resource[i].type == 'S')
+                p1.score = p1.score + 20;
+            else if (resource[i].type == 'B')
+                p1.score = p1.score + 10;
+        resource[i].x = - 1;
+        resource[i].y = - 1;
         resource[i].type = '\0';
       }
+      if (p2.x == resource[i].x && p2.y == resource[i].y) {
+            if (resource[i].type == 'D')
+                p2.score = p2.score + 100;
+            else if (resource[i].type == 'G')
+                p2.score = p2.score + 50;
+            else if (resource[i].type == 'S')
+                p2.score = p2.score + 20;
+            else if (resource[i].type == 'B')
+                p2.score = p2.score + 10;
+        resource[i].x = - 1;
+        resource[i].y = - 1;
+        resource[i].type = '\0';
       }
-
     }
-    Display_Gameboard(board,board_size);
+    turn = abs(turn - 1); // need cstdlib
+    Clear_Screen();
+  }
+  Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
+  cout << p1.score << " " << p2.score << endl;
   system("PAUSE");
   delete [] board;
   delete [] resource;
