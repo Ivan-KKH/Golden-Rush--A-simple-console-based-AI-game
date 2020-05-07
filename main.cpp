@@ -35,12 +35,6 @@ struct coord {
 };
 
 
-#include "Input.h"
-#include "Process.h"
-#include "Output.h"
-
-
-// // get number of players, username, difficulty
 // void nop_username_difficulty(string &nop, string &username, string &difficulty, int &number_of_player){
 //
 //   bool select = true;
@@ -56,7 +50,6 @@ struct coord {
 //         if (difficulty == "easy") {
 //           cout << "easy mode selected" << endl;
 //           select = false;
-//           getline(cin, username);
 //         }
 //         else if  (difficulty == "hard") {
 //           cout << "hard mode selected" << endl;
@@ -64,18 +57,19 @@ struct coord {
 //         }
 //         else
 //           cout << "invalid input, please select again." << endl;
+//         cout << "Please input username:";
+//         while (username == "")
+//           getline(cin, username);
 //       }
-//       cout << "Please input username" << endl;
-//       getline(cin, username);
 //       p1.username = username;
 //       p2.username = "bot";
 //     }
 //     else if (nop == "2") {
 //       number_of_player = 2;
-//       cout << "Please input username of player 1";
+//       cout << "Please input username of player 1: ";
 //       getline(cin, username);
 //       p1.username = username;
-//       cout << "Please input username of player 2";
+//       cout << "Please input username of player 2: ";
 //       getline(cin, username);
 //       p2.username = username;
 //       select = false;
@@ -84,8 +78,8 @@ struct coord {
 //       cout << "Invalid input, please enter 1/2 again" << endl;
 //     }
 // }
-
-// // create boardsize from user input (input)
+//
+// // create boardsize
 // void boardsize(int &board_size){
 //   while (board_size < 5 ||board_size > 25) {
 //     cout << "Please enter a number n(5-25) to determine the size n x n board" << endl;
@@ -94,8 +88,8 @@ struct coord {
 //       cout << "The range for the board size is 5x5 to 25x25, please enter the size again" << endl;
 //   }
 // }
-
-// //to create a gameboard of size n x n (process)
+//
+// //to create a gameboard of size n x n
 // void Create_Gameboard(char** board, int board_size){
 //   for (int i = 0; i < board_size + 2;i++) {
 //     for (int j = 0;j < board_size + 2;j++) {
@@ -108,8 +102,8 @@ struct coord {
 //     }
 //   }
 // }
-
-//  // to display the whole gameboard whenever needed (output)
+//
+//  // to display the whole gameboard whenever needed
 // void Display_Gameboard(char** board,int board_size, int p1_score,int p2_score, string p1_name,string p2_name){
 //   cout << left << setw(10) <<p1_name<< right << setw(20)  << p2_name << endl;
 //   cout << left << setw(10) << p1_score << right << setw(20) << p2_score << endl;
@@ -120,7 +114,7 @@ struct coord {
 //     cout << endl;
 //   }
 // }
-
+//
 // //to allocate the coordinates of resources onto the gameboard
 // void allocate_resources(coord* resource, int number_of_resources, int board_size){
 //   // coord* resource = new coord[number_of_resources];
@@ -188,7 +182,7 @@ struct coord {
 // }
 //
 // // check if the movement is valid
-// bool Movement_valid(char player_movement, player &p1,player &p2, int who_move, int board_size, char** board){   //cannot overlap with another player, cannot step out of boundary, and update the board if valid
+// bool Movement_valid(char player_movement, player &p1,player &p2, int who_move, int board_size, char** board){
 //   int new_p1_x, new_p1_y, new_p2_x, new_p2_y;
 //   if ( who_move == 0){
 //     if (player_movement == 'w') {
@@ -246,75 +240,65 @@ struct coord {
 //   }
 // }
 //
-// // // determine who go first (process)
-// // int who_go_first(){
-// //   int gen = rand() % 2;
-// //   if (gen == 0) {
-// //     cout << "player 1 go first" << endl;
-// //     return 0;
-// //   }
-// //   else {
-// //     cout << "player 2 go first" << endl;
-// //     return 1;
-// //   }
-// //   system("PAUSE");
-// //   Clear_Screen();
-// // }
-// //
-// // // to implement the move of computer with easy mode (process)
-// // char easy_mode(){
-// //   int decision = rand() % 4;
-// //   if (decision == 0)
-// //     return 'w';
-// //   else if (decision == 1)
-// //     return 'a';
-// //   else if (decision == 2)
-// //     return 's';
-// //   else if (decision == 3)
-// //     return 'd';
-// // }
-// //
-// // // calculate score (process)
-// // int convert_score(char type) {
-// //   if (type == 'D')
-// //       return 100;
-// //   else if (type == 'G')
-// //       return 50;
-// //   else if (type == 'S')
-// //       return 20;
-// //   else if (type == 'B')
-// //       return 10;
-// // }
+// // determine who go first
+// int who_go_first(){
+//   int gen = rand() % 2;
+//   if (gen == 0) {
+//     cout << "player 1 go first" << endl;
+//     return 0;
+//   }
+//   else {
+//     cout << "player 2 go first" << endl;
+//     return 1;
+//   }
+// }
+//
+// // to implement the move of computer with easy mode
+// char easy_mode(){
+//   int decision = rand() % 4;
+//   if (decision == 0)
+//     return 'w';
+//   else if (decision == 1)
+//     return 'a';
+//   else if (decision == 2)
+//     return 's';
+//   else if (decision == 3)
+//     return 'd';
+// }
+//
+// int convert_score(char type) {
+//   if (type == 'D')
+//       return 100;
+//   else if (type == 'G')
+//       return 50;
+//   else if (type == 'S')
+//       return 20;
+//   else if (type == 'B')
+//       return 10;
+// }
 //
 // int target_resource_hard_mode(coord* resource, int number_of_resources, player&p1, player&p2, char** board,int board_size){
 //   double manhatten_distance;
 //   double point = 0;
 //   double* point_arr = new double[number_of_resources];
 //   for (int i = 0;i < number_of_resources; i++) {
-//     //cout << "point " <<  i << " = ";
 //     if (resource[i].type != '\0') {
 //       manhatten_distance = abs(resource[i].x - p2.x) + abs(resource[i].y - p2.y);
 //       point += convert_score(resource[i].type)/manhatten_distance;
-//       //cout << convert_score(resource[i].type) << "/" << manhatten_distance << " + ";
 //       for (int j = 0;j < number_of_resources; j++) {
 //         if (j != i && resource[j].type != '\0') {
 //             manhatten_distance = abs(resource[j].x - resource[i].x) + abs(resource[j].y - resource[i].y);
 //             point += convert_score(resource[j].type)/manhatten_distance;
-//             //cout << convert_score(resource[j].type) << "/" << manhatten_distance << " + ";
 //         }
 //       }
 //     }
 //     else point_arr[i] = -1;
-//     //cout << " = " << point << endl;
 //     point_arr[i] = point;
 //     point = 0;
 //   }
 //   double max_point = point_arr[0];
 //   int max_point_index = 0;
-//   Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
-//   cout << endl;
 //   for (int i = 0;i < number_of_resources; i++) {
-//     cout << i << " " << resource[i].x << " "<<resource[i].y <<  " "<< resource[i].type << " "<< point_arr[i] << endl;
 //     if (point_arr[i] > max_point) {
 //       max_point = point_arr[i];
 //       max_point_index = i;
@@ -381,13 +365,19 @@ struct coord {
 // void process(coord *resource, int number_of_resources, player &p1, player &p2, char **board, int board_size, int number_of_player, string difficulty){
 //   char player_movement;
 //   int turn = who_go_first(),target_resource;
+//   cout << "Initial gameboard" << endl << endl;
+//   Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
+//   cout << endl;
+//   cout << "Press any key to continue" << endl;
+//   getch();
+//   Clear_Screen;
 //   target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
 //   cout << "current target resource = " << resource[target_resource].x << " "<<  resource[target_resource].y << " ";
-//
-//   // obtain the next move
 //   while (Check_endgame(resource,number_of_resources) == false) {
 //     cout << "player " << turn + 1 << " turn" << endl << endl;
-//     Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
+//     if (number_of_player == 1 && turn == 1) {}
+//     else
+//       Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
 //     if (turn == 0) {
 //       cout << "please enter your movement (w/a/s/d)" << endl;
 //       cin >> player_movement;
@@ -397,13 +387,12 @@ struct coord {
 //         player_movement = easy_mode();
 //       if (difficulty == "hard")
 //         player_movement = hard_mode_move(target_resource,resource,p1,p2,board,board_size);
+//       cout << "player " << turn + 1 << " turn " << endl << endl;
 //     }
 //     else {
 //       cout << "please enter your movement (w/a/s/d)" << endl;
 //       cin >> player_movement;
 //     }
-//
-//     // check whether the movement is valid
 //     while (Movement_valid(player_movement,p1,p2,turn,board_size,board) == false) {
 //       if (turn == 0) {
 //         cin >> player_movement;
@@ -421,8 +410,6 @@ struct coord {
 //         cin >> player_movement;
 //       }
 //     }
-//
-//     // add score and delete resouce when the player reaches the resource
 //     for (int i=0; i < number_of_resources; i++){
 //       if (p1.x == resource[i].x && p1.y == resource[i].y) {
 //         p1.score += convert_score(resource[i].type);
@@ -443,8 +430,8 @@ struct coord {
 //     cout << "current target resource = " << resource[target_resource].x << " "<<  resource[target_resource].y << " " << resource[target_resource].type << endl;
 //   }
 // }
-
-// // to display the gamerule (output)
+//
+// // to display the gamerule
 // void Display_Gamerule() {
 //   string s;
 //   ifstream fin;
@@ -457,16 +444,12 @@ struct coord {
 //   fin.close();
 // }
 
-
-
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 int main() {
 
   Display_Gamerule();
   cout << endl;
   int board_size = 0,number_of_player;
-  string difficulty,nop,username;
+  string difficulty,nop,username = "";
 
   nop_username_difficulty(nop, username, difficulty, number_of_player);
 
