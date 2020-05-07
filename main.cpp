@@ -6,6 +6,7 @@
 #include <ctime>
 #include <string>
 #include <fstream>
+#include <conio.h>
 // #include "Create_Gameboard.h"
 // #include "Display_Gameboard.h"
 #include "GUI.h"
@@ -41,7 +42,6 @@ void nop_username_difficulty(string &nop, string &username, string &difficulty, 
         if (difficulty == "easy") {
           cout << "easy mode selected" << endl;
           select = false;
-          getline(cin, username);
         }
         else if  (difficulty == "hard") {
           cout << "hard mode selected" << endl;
@@ -49,18 +49,19 @@ void nop_username_difficulty(string &nop, string &username, string &difficulty, 
         }
         else
           cout << "invalid input, please select again." << endl;
+        cout << "Please input username:";
+        while (username == "")
+          getline(cin, username);
       }
-      cout << "Please input username" << endl;
-      getline(cin, username);
       p1.username = username;
       p2.username = "bot";
     }
     else if (nop == "2") {
       number_of_player = 2;
-      cout << "Please input username of player 1";
+      cout << "Please input username of player 1: ";
       getline(cin, username);
       p1.username = username;
-      cout << "Please input username of player 2";
+      cout << "Please input username of player 2: ";
       getline(cin, username);
       p2.username = username;
       select = false;
@@ -173,7 +174,7 @@ bool Check_endgame(coord *resource,int number_of_resources){
 }
 
 // check if the movement is valid
-bool Movement_valid(char player_movement, player &p1,player &p2, int who_move, int board_size, char** board){   //cannot overlap with another player, cannot step out of boundary, and update the board if valid
+bool Movement_valid(char player_movement, player &p1,player &p2, int who_move, int board_size, char** board){
   int new_p1_x, new_p1_y, new_p2_x, new_p2_y;
   if ( who_move == 0){
     if (player_movement == 'w') {
@@ -242,8 +243,6 @@ int who_go_first(){
     cout << "player 2 go first" << endl;
     return 1;
   }
-  system("PAUSE");
-  Clear_Screen();
 }
 
 // to implement the move of computer with easy mode
@@ -275,30 +274,23 @@ int target_resource_hard_mode(coord* resource, int number_of_resources, player&p
   double point = 0;
   double* point_arr = new double[number_of_resources];
   for (int i = 0;i < number_of_resources; i++) {
-    //cout << "point " <<  i << " = ";
     if (resource[i].type != '\0') {
       manhatten_distance = abs(resource[i].x - p2.x) + abs(resource[i].y - p2.y);
       point += convert_score(resource[i].type)/manhatten_distance;
-      //cout << convert_score(resource[i].type) << "/" << manhatten_distance << " + ";
       for (int j = 0;j < number_of_resources; j++) {
         if (j != i && resource[j].type != '\0') {
             manhatten_distance = abs(resource[j].x - resource[i].x) + abs(resource[j].y - resource[i].y);
             point += convert_score(resource[j].type)/manhatten_distance;
-            //cout << convert_score(resource[j].type) << "/" << manhatten_distance << " + ";
         }
       }
     }
     else point_arr[i] = -1;
-    //cout << " = " << point << endl;
     point_arr[i] = point;
     point = 0;
   }
   double max_point = point_arr[0];
   int max_point_index = 0;
-  Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
-  cout << endl;
   for (int i = 0;i < number_of_resources; i++) {
-    cout << i << " " << resource[i].x << " "<<resource[i].y <<  " "<< resource[i].type << " "<< point_arr[i] << endl;
     if (point_arr[i] > max_point) {
       max_point = point_arr[i];
       max_point_index = i;
@@ -365,11 +357,19 @@ char hard_mode_move(int target_resource, coord* resource, player&p1, player&p2,c
 void process(coord *resource, int number_of_resources, player &p1, player &p2, char **board, int board_size, int number_of_player, string difficulty){
   char player_movement;
   int turn = who_go_first(),target_resource;
-target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
-cout << "current target resource = " << resource[target_resource].x << " "<<  resource[target_resource].y << " ";
+  cout << "Initial gameboard" << endl << endl;
+  Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
+  cout << endl;
+  cout << "Press any key to continue" << endl;
+  getch();
+  Clear_Screen;
+  target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
+  cout << "current target resource = " << resource[target_resource].x << " "<<  resource[target_resource].y << " ";
   while (Check_endgame(resource,number_of_resources) == false) {
     cout << "player " << turn + 1 << " turn" << endl << endl;
-    Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
+    if (number_of_player == 1 && turn == 1) {}
+    else
+      Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
     if (turn == 0) {
       cout << "please enter your movement (w/a/s/d)" << endl;
       cin >> player_movement;
@@ -379,6 +379,7 @@ cout << "current target resource = " << resource[target_resource].x << " "<<  re
         player_movement = easy_mode();
       if (difficulty == "hard")
         player_movement = hard_mode_move(target_resource,resource,p1,p2,board,board_size);
+      cout << "player " << turn + 1 << " turn " << endl << endl;
     }
     else {
       cout << "please enter your movement (w/a/s/d)" << endl;
@@ -440,7 +441,7 @@ int main() {
   Display_Gamerule();
   cout << endl;
   int board_size = 0,number_of_player;
-  string difficulty,nop,username;
+  string difficulty,nop,username = "";
 
   nop_username_difficulty(nop, username, difficulty, number_of_player);
 
@@ -474,7 +475,7 @@ int main() {
 
   cout << p1.score << " " << p2.score << endl;
 
-  system("PAUSE");
+  getch();
 
   delete [] board;
   delete [] resource;
