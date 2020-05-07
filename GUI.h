@@ -16,7 +16,7 @@ void Main_Menu(){
 
 void Clear_Screen(){
   if (system("CLS")){
-    system("clear");  
+    system("clear");
   }
 }
 

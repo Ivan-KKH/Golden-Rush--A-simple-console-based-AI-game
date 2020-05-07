@@ -1,10 +1,17 @@
 #include<iostream>
 #include<iomanip>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 int main()
 {
-  board_size = 0;
-    cout << left << setw(10) << "Hello" << "World\n";
-    cout << left << setw(10) << "Goodbye" << "World\n";
+    srand(time(NULL));
+  for (int i = 0; i< 20;i++){
+  char a[4] = {'u','d','l','r'};
+
+  int rnd = rand() % 4;
+  cout << a[rnd] << endl;
+}
+
 }
