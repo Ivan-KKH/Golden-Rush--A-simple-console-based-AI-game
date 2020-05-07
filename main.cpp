@@ -9,9 +9,22 @@
 #include <conio.h>
 // #include "Create_Gameboard.h"
 // #include "Display_Gameboard.h"
-#include "GUI.h"
 
 using namespace std;
+
+#define PLAYER_1 "\xe2\x98\xba"
+#define PLAYER_2 "\xe2\x98\xbb"
+#define DIAMOND_1 "\xe2\x99\xa6"
+#define GOLD "\xE2\x9B\x83"
+
+
+int print_symbol() {
+    printf("\x1b[96m\xe2\x99\xa6\n");
+    printf("\x1b[93m\xE2\x9B\x83\n");
+    printf("\x1b[37m\xE2\x9B\x83\n");
+    printf("\x1b[33m\xE2\x9B\x83\n");
+    printf("\x1b[0m");
+}
 
 // create a player structure
 struct player {
@@ -26,6 +39,11 @@ struct coord {
   char type;
 };
 
+void Clear_Screen(){
+  if (system("CLS")){
+    system("clear");
+  }
+}
 
 void nop_username_difficulty(string &nop, string &username, string &difficulty, int &number_of_player){
 
@@ -362,7 +380,7 @@ void process(coord *resource, int number_of_resources, player &p1, player &p2, c
   cout << endl;
   cout << "Press any key to continue" << endl;
   getch();
-  Clear_Screen;
+  Clear_Screen();
   target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
   cout << "current target resource = " << resource[target_resource].x << " "<<  resource[target_resource].y << " ";
   while (Check_endgame(resource,number_of_resources) == false) {
@@ -419,7 +437,6 @@ void process(coord *resource, int number_of_resources, player &p1, player &p2, c
     target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
     turn = abs(turn - 1); // need cstdlib
     Clear_Screen();
-    cout << "current target resource = " << resource[target_resource].x << " "<<  resource[target_resource].y << " " << resource[target_resource].type << endl;
   }
 }
 
@@ -473,8 +490,10 @@ int main() {
 
   Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
 
-  cout << p1.score << " " << p2.score << endl;
-
+  cout << "final score: " << endl;
+  cout << "p1: " << p1.score << endl;
+  cout << "p2: " << p2.score << endl;
+  print_symbol();
   getch();
 
   delete [] board;
