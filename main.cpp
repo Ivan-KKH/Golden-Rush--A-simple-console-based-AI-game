@@ -24,6 +24,7 @@ int print_symbol() {
     printf("\x1b[37m\xE2\x9B\x83\n");
     printf("\x1b[33m\xE2\x9B\x83\n");
     printf("\x1b[0m");
+    return 0;
 }
 
 // create a player structure
@@ -287,6 +288,49 @@ int convert_score(char type) {
       return 10;
 }
 
+void allocate_player(int board_size, char** board, int number_of_resources , coord* resource, player &p1,player &p2, int * points) {
+  int manhatten_distance, point = 0;
+  for (int i = 0; i < board_size * board_size; i++) {
+      points[i] = -1;
+      if (board[(i/board_size) + 1][i%board_size + 1] == ' '){
+        point = 0;
+        for (int j = 0; j < number_of_resources; j++) {
+          if (resource[j].type != '\0') {
+            manhatten_distance = abs(resource[j].x - (i%board_size)) + abs(resource[j].y - (i/board_size));
+            point = point + convert_score(resource[j].type)/manhatten_distance;
+          }
+        }
+        points[i] = point;
+      }
+    }
+  //for (int i = 0; i < board_size ; i++) {
+    //for (int j = 0; j < board_size; j++) {
+      //cout << points[i * board_size + j] << " ";
+    //}
+    //cout << endl;
+  //}
+  int least_difference = abs(points[1] - points[0]),location_1 = 0,location_2 = 1;
+  for (int i = 0; i < board_size * board_size ; i++) {
+    for (int j = i + 1; j < board_size * board_size; j++) {
+      if (points[i] != -1 &&points[j] != -1) {
+        if (abs(points[i] - points[j]) <= least_difference) {
+          least_difference = abs(points[i] - points[j]);
+          location_1 = i;
+          location_2 = j;
+        }
+      }
+    }
+  }
+  p1.x = location_1%board_size;
+  p1.y = location_1/board_size;
+  p2.x = location_2%board_size;
+  p2.y = location_2/board_size;
+  board[location_1/board_size + 1][location_1%board_size + 1] = '1';
+  board[location_2/board_size + 1][location_2%board_size + 1] = '2';
+  delete[] points;
+}
+
+
 int target_resource_hard_mode(coord* resource, int number_of_resources, player&p1, player&p2, char** board,int board_size){
   double manhatten_distance;
   double point = 0;
@@ -454,7 +498,6 @@ void Display_Gamerule() {
 }
 
 int main() {
-
   Display_Gamerule();
   cout << endl;
   int board_size = 0,number_of_player;
@@ -484,7 +527,10 @@ int main() {
 
   assign_resources(number_of_resources, resource, board);
 
-  check_conflict_player_resources(p1, p2, resource, number_of_resources, board_size, board);
+  //check_conflict_player_resources(p1, p2, resource, number_of_resources, board_size, board);
+  int* points = new int [board_size * board_size];
+
+  allocate_player(board_size,board, number_of_resources , resource, p1, p2, points);
 
   process(resource, number_of_resources, p1, p2, board, board_size, number_of_player, difficulty);
 
@@ -498,6 +544,7 @@ int main() {
 
   delete [] board;
   delete [] resource;
+  delete [] points;
 
   return 0;
 }
