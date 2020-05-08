@@ -108,7 +108,15 @@ void allocate_resources(coord* resource, int number_of_resources, int board_size
 // assign resources on the gameboard
 void assign_resources(int number_of_resources, coord *resource, char **board){
   for (int i = 0;i < number_of_resources;i++) {
-    board[resource[i].y + 1][resource[i].x + 1] = resource[i].type;
+    // board[resource[i].y + 1][resource[i].x + 1] = resource[i].type;
+    if (resource[i].type == "D")
+      board[resource[i].y + 1][resource[i].x + 1] = "\x1b[96m\xe2\x99\xa6\n";
+    else if (resource[i].type == "G")
+      board[resource[i].y + 1][resource[i].x + 1] = "\x1b[93m\xE2\x9B\x83\n";
+    else if (resource[i].type == "S")
+      board[resource[i].y + 1][resource[i].x + 1] = "\x1b[37m\xE2\x9B\x83\n";
+    else if (resource[i].type == "B")
+      board[resource[i].y + 1][resource[i].x + 1] = "\x1b[33m\xE2\x9B\x83\n";
   }
 }
 
