@@ -9,6 +9,7 @@
 #include "Input.h"
 #include "Process.h"
 #include "Output.h"
+#include "Leaderboard.h"
 
 
 using namespace std;
@@ -28,7 +29,6 @@ int print_symbol() {
     return 0;
 }
 
-
 int main() {
   Display_Gamerule();
   cout << endl;
@@ -47,7 +47,7 @@ int main() {
   for (int i = 0;i < board_size + 2;i++)
     board[i] = new char[board_size+2];
 
-  srand(time(NULL));       //to randomize the number of resources on the board
+  srand(time(NULL));     //to randomize the number of resources on the board
 
   coord* resource;
   int* points;
@@ -87,6 +87,7 @@ int main() {
     cout << "the game is a draw!" << endl;
   cout << "please press <enter> to continue" << endl;
   cin.get();
+  Print_leaderboard(p1, board_size);
   delete [] resource;
   delete [] points;
   delete [] board;

@@ -311,7 +311,6 @@ void process(coord *resource, int number_of_resources, player &p1, player &p2, c
   cout << endl;
   cout << "please press <enter> to continue" << endl;
   cin.get();
-  cin.get();
   Clear_Screen();
   target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
   while (Check_endgame(resource,number_of_resources) == false) {
