@@ -1,13 +1,14 @@
 #include<iostream>
 #include<iomanip>
 #include<conio.h>
-#include "Player_Movement_control.h"
+#include <stdio.h>
 using namespace std;
 int main()
 {
-     char move;
-     while (true) {
-       move = Player_Movement_control();
-       cout << move << endl;
-     }
+  printf("\x1b[96m\xe2\x99\xa6\n");
+  printf("\x1b[93m\xE2\x9B\x83\n");
+  printf("\x1b[37m\xE2\x9B\x83\n");
+  printf("\x1b[33m\xE2\x9B\x83\n");
+  printf("\x1b[0m");
+  return 0;
 }

@@ -34,7 +34,20 @@ void Display_Gameboard(char** board,int board_size, int p1_score,int p2_score, s
   cout << left << setw(10) << p1_score << right << setw(20) << p2_score << endl;
   for (int i = 0; i < board_size + 2;i++) {
     for (int j = 0;j < board_size + 2;j++) {
-      cout << "[" << board[i][j] << "]";
+      if (board[i][j] == 'D')
+        cout << "[" << "\x1b[96m\xe2\x99\xa6" << "\x1b[30m]";
+      else if (board[i][j] == 'G')
+        cout  << "[" << "\x1b[93m\xE2\x9B\x83" << "\x1b[30m]";
+      else if (board[i][j] == 'S')
+        cout  << "[" << "\x1b[37m\xE2\x9B\x83" << "\x1b[30m]";
+      else if (board[i][j] == 'B')
+        cout  << "[" << "\x1b[33m\xE2\x9B\x83" << "\x1b[30m]";
+      else if (board[i][j] == '1')
+        cout  << "[" << "\xe2\x98\xba" << "\x1b[30m]";
+      else if (board[i][j] == '2')
+        cout  << "[" << "\xe2\x98\xbb" << "\x1b[30m]";
+      else
+        cout  << "[" << board[i][j] << "\x1b[30m]";
     }
     cout << endl;
   }
@@ -108,15 +121,7 @@ void allocate_resources(coord* resource, int number_of_resources, int board_size
 // assign resources on the gameboard
 void assign_resources(int number_of_resources, coord *resource, char **board){
   for (int i = 0;i < number_of_resources;i++) {
-    // board[resource[i].y + 1][resource[i].x + 1] = resource[i].type;
-    if (resource[i].type == "D")
-      board[resource[i].y + 1][resource[i].x + 1] = "\x1b[96m\xe2\x99\xa6\n";
-    else if (resource[i].type == "G")
-      board[resource[i].y + 1][resource[i].x + 1] = "\x1b[93m\xE2\x9B\x83\n";
-    else if (resource[i].type == "S")
-      board[resource[i].y + 1][resource[i].x + 1] = "\x1b[37m\xE2\x9B\x83\n";
-    else if (resource[i].type == "B")
-      board[resource[i].y + 1][resource[i].x + 1] = "\x1b[33m\xE2\x9B\x83\n";
+    board[resource[i].y + 1][resource[i].x + 1] = resource[i].type;
   }
 }
 
@@ -324,7 +329,11 @@ void process(coord *resource, int number_of_resources, player &p1, player &p2, c
   Clear_Screen();
   target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
   while (Check_endgame(resource,number_of_resources) == false) {
-    cout << "player " << turn + 1 << " turn" << endl << endl;
+    string player_symbol;
+    if (turn == 0)
+      player_symbol = "\xe2\x98\xba";
+    else player_symbol = "\xe2\x98\xbb";
+    cout << "player " << turn + 1 << " " << player_symbol << " turn" << endl << endl;
     if (number_of_player == 1 && turn == 1) {}
     else
       Display_Gameboard(board,board_size,*p1_round_score,*p2_round_score,p1.username,p2.username);
