@@ -1,13 +1,13 @@
 #include<iostream>
 #include<iomanip>
 #include<conio.h>
-
+#include "Player_Movement_control.h"
 using namespace std;
 int main()
 {
-     int v = 7 ;
-     int* pointer = &v ;
-     // use *pointer
-     cout << *pointer;
-     delete pointer ; // undefined behaviour
+     char move;
+     while (true) {
+       move = Player_Movement_control();
+       cout << move << endl;
+     }
 }

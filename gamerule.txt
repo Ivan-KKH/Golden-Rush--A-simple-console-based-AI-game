@@ -5,10 +5,10 @@ Hi adventurer! Welcome to the Golden Rush! World.
 
 One day, you go to bed and sleep as usual at night. A few moments later, you realize that you get into the world of jewellery. It's full of Diamond, Gold, Silver, and Bronze on the floor! You must pick them up faster than the other adventurer! There are some points you should be aware of:
 
-1. First, enter your username and choose the difficulty (easy/hard), your username is the name of your adventurer.
+1. First, enter the number of players, the usernames and choose the difficulty (easy/hard), your username is the name of your adventurer.
 
 2. The initial location of the adventurers and jewellery are randomized.
-   Each adventurer can make one move round by round, one after another. You can move freely in any direction by clicking the 'W,A,S,D' buttons on your keyboard to go up, left, down, right respectively.
+   Each adventurer can make one move round by round, one after another. You can move freely in any direction by clicking the 'w,a,s,d' buttons on your keyboard, and then click enter to go up, left, down, right respectively.
 
 3. When you reach the location where the jewellery is located at, you get the points according to the type of jewellery.
 
@@ -17,7 +17,7 @@ One day, you go to bed and sleep as usual at night. A few moments later, you rea
   Silver:  20 points
   Bronze:  10 points
 
-4. Each round of the game is called a set. The game ends when there is no jewellery left on the map. The total score will be recorded for that round and accumulate with all the other sets. The first adventurer who scores higher in two sets wins the game.
+4. Each round is regarded as a set, the set ends once all the resources have been collected. The player who gets more points wins the set, the game will end once one of the player wins two games in total, and the winner will be the one who scores more in total.
 
 5. We store the most recent ten records of the score to the scoreboard and save the top 3 adventurers who have got the highest score in history.
 
