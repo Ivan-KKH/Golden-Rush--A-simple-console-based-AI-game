@@ -310,6 +310,8 @@ void process(coord *resource, int number_of_resources, player &p1, player &p2, c
   Display_Gameboard(board,board_size,*p1_round_score,*p2_round_score,p1.username,p2.username);
   cout << endl;
   cout << "please press <enter> to continue" << endl;
+  cin.clear();
+  cin.ignore(255,'\n');
   cin.get();
   Clear_Screen();
   target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
