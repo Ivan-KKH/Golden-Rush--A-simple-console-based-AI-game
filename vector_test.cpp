@@ -10,7 +10,7 @@ using namespace std;
 
 int main(){
 
-  int n=10, m=3;
+  int n=21, m=3;
   vector <vector<string>> usernames(n);
   vector <vector<int>> scores(n);
 
