@@ -108,7 +108,7 @@ void Print_leaderboard(player &p1, int board_size){
     cout << setw(12) << "Adventurer";
     cout << setw(12) << "Score" << endl;
     for (int j=0; j<m; j++){
-      cout << j+1 << setw(10) << usernames[i][j] ;
+      cout << j+1 << "  "<< setw(10) << usernames[i][j] ;
       cout << setw(10) << scores[i][j];
       cout << endl;
     }

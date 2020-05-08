@@ -75,7 +75,10 @@ int main() {
     Show_round_winner(p1_round_score,p2_round_score,p1,p2);
 
     cout << "please press <enter> to continue" << endl;
+    cin.clear();
+    cin.ignore(255,'\n');
     cin.get();
+
 
     Clear_Screen();
 }
@@ -86,7 +89,9 @@ int main() {
   else
     cout << "the game is a draw!" << endl;
   cout << "please press <enter> to continue" << endl;
-  cin.get();
+  // cin.clear();
+  // cin.ignore(255,'\n');
+  // cin.get();
   Print_leaderboard(p1, board_size);
   delete [] resource;
   delete [] points;
