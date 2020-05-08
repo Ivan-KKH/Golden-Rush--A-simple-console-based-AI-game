@@ -1,4 +1,4 @@
-#ifndef PLAYER_MOVEMENT_CONTROL_H_
+ifndef PLAYER_MOVEMENT_CONTROL_H_
 #define PLAYER_MOVEMENT_CONTROL_H_
 
 #include <stdio.h>

@@ -7,8 +7,6 @@
 #include <string>
 #include <fstream>
 #include <conio.h>
-// #include "Create_Gameboard.h"
-// #include "Display_Gameboard.h"
 
 using namespace std;
 
@@ -29,7 +27,7 @@ int print_symbol() {
 
 // create a player structure
 struct player {
-  int x,y,score;
+  int x,y,score,win = 0;
   string username;
 };
 player p1,p2;
@@ -160,30 +158,6 @@ void assign_resources(int number_of_resources, coord *resource, char **board){
   }
 }
 
-// check conflict between players and assign_resources
-void check_conflict_player_resources(player &p1, player &p2, coord *resource, int &number_of_resources, int &board_size, char **board){
-  int found = true;
-  while (found == true) {
-    found = false;
-    p1.x = rand() % board_size;
-    p1.y = rand() % board_size;
-    p2.x = rand() % board_size;
-    p2.y = rand() % board_size;
-    if (p1.x == p2.x && p1.y == p2.y)
-      found = true;
-    else {
-      for (int i = 0; i < number_of_resources; i++) {
-        if (p1.x == resource[i].x && p1.y == resource[i].y)
-          found = true;
-        if (p2.x == resource[i].x && p2.y == resource[i].y)
-            found = true;
-      }
-    }
-  }
-  board[p1.y + 1][p1.x + 1] = '1';
-  board[p2.y + 1][p2.x + 1] = '2';
-}
-
 // check if the game ends
 bool Check_endgame(coord *resource,int number_of_resources){
   for (int i = 0; i < number_of_resources;i++)
@@ -303,12 +277,6 @@ void allocate_player(int board_size, char** board, int number_of_resources , coo
         points[i] = point;
       }
     }
-  //for (int i = 0; i < board_size ; i++) {
-    //for (int j = 0; j < board_size; j++) {
-      //cout << points[i * board_size + j] << " ";
-    //}
-    //cout << endl;
-  //}
   int least_difference = abs(points[1] - points[0]),location_1 = 0,location_2 = 1;
   for (int i = 0; i < board_size * board_size ; i++) {
     for (int j = i + 1; j < board_size * board_size; j++) {
@@ -338,7 +306,7 @@ int target_resource_hard_mode(coord* resource, int number_of_resources, player&p
   for (int i = 0;i < number_of_resources; i++) {
     if (resource[i].type != '\0') {
       manhatten_distance = abs(resource[i].x - p2.x) + abs(resource[i].y - p2.y);
-      point += convert_score(resource[i].type)/manhatten_distance;
+      point += (convert_score(resource[i].type)/manhatten_distance) * (number_of_resources - 1);
       for (int j = 0;j < number_of_resources; j++) {
         if (j != i && resource[j].type != '\0') {
             manhatten_distance = abs(resource[j].x - resource[i].x) + abs(resource[j].y - resource[i].y);
@@ -416,22 +384,21 @@ char hard_mode_move(int target_resource, coord* resource, player&p1, player&p2,c
   }
 }
 
-void process(coord *resource, int number_of_resources, player &p1, player &p2, char **board, int board_size, int number_of_player, string difficulty){
+void process(coord *resource, int number_of_resources, player &p1, player &p2, char **board, int board_size, int number_of_player, string difficulty,int * p1_round_score,int* p2_round_score){
   char player_movement;
   int turn = who_go_first(),target_resource;
   cout << "Initial gameboard" << endl << endl;
-  Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
+  Display_Gameboard(board,board_size,*p1_round_score,*p2_round_score,p1.username,p2.username);
   cout << endl;
   cout << "Press any key to continue" << endl;
   getch();
   Clear_Screen();
   target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
-  cout << "current target resource = " << resource[target_resource].x << " "<<  resource[target_resource].y << " ";
   while (Check_endgame(resource,number_of_resources) == false) {
     cout << "player " << turn + 1 << " turn" << endl << endl;
     if (number_of_player == 1 && turn == 1) {}
     else
-      Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
+      Display_Gameboard(board,board_size,*p1_round_score,*p2_round_score,p1.username,p2.username);
     if (turn == 0) {
       cout << "please enter your movement (w/a/s/d)" << endl;
       cin >> player_movement;
@@ -467,18 +434,22 @@ void process(coord *resource, int number_of_resources, player &p1, player &p2, c
     for (int i=0; i < number_of_resources; i++){
       if (p1.x == resource[i].x && p1.y == resource[i].y) {
         p1.score += convert_score(resource[i].type);
+        *p1_round_score += convert_score(resource[i].type);
         resource[i].x = - 1;
         resource[i].y = - 1;
         resource[i].type = '\0';
+        if (i == target_resource)
+          target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
       }
       if (p2.x == resource[i].x && p2.y == resource[i].y) {
         p2.score += convert_score(resource[i].type);
+        *p2_round_score += convert_score(resource[i].type);
         resource[i].x = - 1;
         resource[i].y = - 1;
         resource[i].type = '\0';
+        target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
       }
     }
-    target_resource = target_resource_hard_mode(resource,number_of_resources,p1,p2,board,board_size);
     turn = abs(turn - 1); // need cstdlib
     Clear_Screen();
   }
@@ -495,6 +466,22 @@ void Display_Gamerule() {
   while (getline(fin,s))
     cout << s << endl;
   fin.close();
+}
+
+void Show_round_winner(int p1_score,int p2_score, player&p1,player&p2) {
+  if (p1_score > p2_score) {
+      cout << endl << p1.username <<  " win this round" << endl;
+      p1.win++;
+  }
+  else if (p2_score > p1_score) {
+      cout << endl << p2.username << " win this round" << endl;
+      p2.win++;
+  }
+  else
+    cout << endl << "This round is a draw." << endl << endl;
+  cout << "Cumulated score(including this round): " << endl << endl;
+  cout << p1.username <<": " << p1.score << endl;
+  cout << p2.username << ": " << p2.score << endl;
 }
 
 int main() {
@@ -516,35 +503,43 @@ int main() {
     board[i] = new char[board_size+2];
 
   srand(time(NULL));       //to randomize the number of resources on the board
-  int number_of_resources = (0.2*board_size * board_size + 1);
-  number_of_resources = rand() % number_of_resources + board_size * board_size * 0.2;
 
-  coord* resource = new coord[number_of_resources]; //to allocate the resources onto the gameboard
+  coord* resource;
+  int* points;
 
-  allocate_resources(resource, number_of_resources, board_size);
+  while (p1.win < 2&&p2.win <2) {
+    int p1_round_score = 0,p2_round_score = 0;
 
-  Create_Gameboard(board, board_size);
+    int number_of_resources = (0.2*board_size * board_size + 1);
+    number_of_resources = rand() % number_of_resources + board_size * board_size * 0.2;
 
-  assign_resources(number_of_resources, resource, board);
+    coord* resource = new coord[number_of_resources]; //to allocate the resources onto the gameboard
 
-  //check_conflict_player_resources(p1, p2, resource, number_of_resources, board_size, board);
-  int* points = new int [board_size * board_size];
+    allocate_resources(resource, number_of_resources, board_size);
 
-  allocate_player(board_size,board, number_of_resources , resource, p1, p2, points);
+    Create_Gameboard(board, board_size);
 
-  process(resource, number_of_resources, p1, p2, board, board_size, number_of_player, difficulty);
+    assign_resources(number_of_resources, resource, board);
 
-  Display_Gameboard(board,board_size,p1.score,p2.score,p1.username,p2.username);
+    int* points = new int [board_size * board_size];
 
-  cout << "final score: " << endl;
-  cout << "p1: " << p1.score << endl;
-  cout << "p2: " << p2.score << endl;
-  print_symbol();
+    allocate_player(board_size,board, number_of_resources , resource, p1, p2, points);
+
+    process(resource, number_of_resources, p1, p2, board, board_size, number_of_player, difficulty, &p1_round_score,&p2_round_score);
+
+    Show_round_winner(p1_round_score,p2_round_score,p1,p2);
+
+    Clear_Screen();
+}
+  if (p1.score > p2.score)
+    cout << p1.username << " wins the game!" << endl;
+  else if (p2.score > p1.score)
+    cout << p2.username << " wins the game!" << endl;
+  else
+    cout << "the game is a draw!" << endl;
   getch();
-
-  delete [] board;
   delete [] resource;
   delete [] points;
-
+  delete [] board;
   return 0;
 }
