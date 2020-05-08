@@ -1,0 +1,24 @@
+FLAGS = -pedantic-errors -std=c++11
+
+input.o: input.h 
+    g++ $(FLAGS) -c $<
+
+process.o: process.h 
+    g++ $(FLAGS) -c $<
+
+output.o: output.h
+    g++ $(FLAGS) -c $<
+
+main.o: main.cpp input.h process.h output.h
+    g++ $(FLAGS) -c $<
+
+main: main.o input.o process.o output.o 
+    g++ $(FLAGS) $^ -o $@
+
+clean: 
+    rm -f main input.o process.o output.o main.o input.tgz process.tgz output.tgz 
+
+tar: 
+    tar -czvf input.tgz process.tgz output.tgz *.cpp *.h 
+
+.PHONY: clean tar
