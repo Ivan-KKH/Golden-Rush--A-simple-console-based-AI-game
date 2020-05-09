@@ -17,7 +17,7 @@ Display Sample of gameboard:
 ## Features/Functions: (vis-a-vis 1-5 requirement) * Note: Code Requirements are represented in []
 
 ### Input header file(store the input functions in a seperated header file) [5]
-### Functions used:
+   Functions used:
 1) **Number of players (PVP/ Person vs. Computer), Username of the adventurers, Difficulty (easy/ hard)** 
      - Users can choose to play PVP(2 players), or PVC which has two mode to choose. 
      - Users input their usernames for counting scores in gameboard display and leaderboard purposes.
@@ -33,7 +33,7 @@ Display Sample of gameboard:
      - User can decide the gameboard size on their own (at least 5x5, at most 25x25)
 
 ### Process header file(store the process functions in a seperated header file) [5]
-### Functions used:
+   Functions used:
 1) **Clear Screen**
 
 2) **Create Gameboard**
@@ -76,7 +76,7 @@ Display Sample of gameboard:
      - To continue the game until all resources on the gameboard have been collected.
      
 ### Output header file (store the output functions in a seperated header file) [5]
-### Functions used:
+   Functions used:
 1) **Display Game Rules** [4]
      - Retrieve and display the game rules upon entering the main.
      - game rules are stored in a separate file ("gamerule.txt").
@@ -85,7 +85,7 @@ Display Sample of gameboard:
      - display the winner of the round.
 
 ### Leaderboard header file (store the leaderboard functions in a seperated header file) [5]
-### Functions used:
+   Functions used:
 1) **Print Leaderboard** [4]
      - Print the leaderboard after the game has ended.
      - Top 3 scores of adventurers winners would be stored permanently.   
