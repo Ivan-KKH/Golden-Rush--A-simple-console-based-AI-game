@@ -24,11 +24,16 @@ user inputs are shown in ***bold and italic***
   ***5***
   
 ### sample 3.1 (entering movements of adventurer):
-![image](golden rush a 1.1.png)
+![image](golden_rush_a_1.1.png)
+![image](golden_rush_a_1.2.png)
 
 ### sample 3.2 (entering movements of adventurer):
+![image](golden_rush_d_1.1.png)
+![image](golden_rush_d_1.2.png)
 
 ### sample 3.3 (entering movements of adventurer):
+![image](golden_rush_w_1.1.png)
+![image](golden_rush_w_1.1.png)
 
 ### sample 4 (finishing one round):<br />
 
