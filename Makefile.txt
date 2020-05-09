@@ -1,15 +1,15 @@
 FLAGS = -pedantic-errors -std=c++11
 
-input.o: input.cpp input.h
+input.o: input.h
     g++ $(FLAGS) -c $<
 
-process.o: process.cpp process.h
+process.o: process.h
     g++ $(FLAGS) -c $<
 
-output.o: output.cpp output.h
+output.o: output.h
     g++ $(FLAGS) -c $<
 
-Leaderboard.o: Leaderboard.cpp Leaderboard.h
+Leaderboard.o: Leaderboard.h
     g++ $(FLAGS) -c $<
 
 main.o: main.cpp input.h process.h output.h Leaderboard.h
