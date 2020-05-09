@@ -14,7 +14,7 @@ Bronze: 10 points
 Display Sample of gameboard:
 ![image](Display_view.png)
 
-## Features/Functions: (vis-a-vis 1-5 requirement) * Note: Code Requirements will be represented in []
+## Features/Functions: (vis-a-vis 1-5 requirement) * Note: Code Requirements are represented in []
 
 ### Input header file(store the input functions in a seperated header file) [5]
 ### Functions used:
