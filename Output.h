@@ -23,11 +23,11 @@ void Display_Gamerule() {
 // to show the winner of the round
 void Show_round_winner(int p1_score,int p2_score, player&p1,player&p2) {
   if (p1_score > p2_score) {
-      cout << endl << p1.username <<  " win this round" << endl;
+      cout << endl << p1.username <<  " wins this round" << endl;
       p1.win++;
   }
   else if (p2_score > p1_score) {
-      cout << endl << p2.username << " win this round" << endl;
+      cout << endl << p2.username << " wins this round" << endl;
       p2.win++;
   }
   else
