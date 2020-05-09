@@ -17,72 +17,54 @@ Display Sample of gameboard:
 ## Features/Functions: (vis-a-vis 1-5 requirement) * Note: Code Requirements are represented in []
 
 ### Input header file(store the input functions in a seperated header file) [5]
-   Functions used:
-1) **Number of players (PVP/ Person vs. Computer), Username of the adventurers, Difficulty (easy/ hard)** 
+   Features:
+1) **Number of players (PVP/ Person vs. Computer), Username of the adventurers, Difficulty (easy/ hard)** [4]
      - Users can choose to play PVP(2 players), or PVC which has two mode to choose. 
      - Users input their usernames for counting scores in gameboard display and leaderboard purposes.
      - The easy mode will let the bot move randomly, while the hard mode will make the bot moves base on the AI algorithm.
 
-2) **Player Structure** [2]
-     - A struct is made for the adventurers that contain their attributes (Username, score, coordinates)
-     
-3) **Coordinate Structure** [2]
-     - A struct is made for resources and players attributes (types of resources, coordinates)
+2) **Player and Coordinate Structure** [2]
+     - Player structure and Coordinate structure are made for the adventurers that contain players and resources attributes (Username, score, coordinates)
      
 4) **board size** 
      - User can decide the gameboard size on their own (at least 5x5, at most 25x25)
 
 ### Process header file(store the process functions in a seperated header file) [5]
-   Functions used:
-1) **Clear Screen**
-
-2) **Create Gameboard**
-     - Create gameboard according to user input size. 
+   Features:
+1) **Who go first**
+     - Randomize who has the first move in the game for the sake of fairness.
      
-3) **Display Gameboard**
-     - Display the updated gameboard after user input direction.
+2) **Scoring Update**
+     - Scores of adventurer and computer will be updated after each move, scores will be rewarded to adventurers who get to the places containing the resources.
+     -Each type of resource contains different points.
      
-4) **Who go first**
-     - Determine who has the first move for the sake of fairness.
-     
-5) **Easy Mode**
-     - Determine the move of computer for easy mode.
-     
-6) **Convert Score**
-     - Calculate score for both adventurer and computer.
-     
-7) **Randomize the resources allocation** [1,3]
+3) **Randomize the resources and adventurer location** [1,3]
      - Number of resources will be randomized, ensuring there will be resources in the board.
+     - Probability of the resources to appear depend on the rarity(points) of the resources.
+     - e.g. diamond is the rarest and bronze is the most common.
+     - Locations of adventurers and computer will also be randomize for the sake of fairness.
      
-8) **Assign Resouces**[1,3]
-     - Assign resources onto the gameboard
-     
-9) **Randomize adventurers’ location** [1,3]
-     - Location of the adventurers will be randomized for the sake of fairness.
-
-10) **Check end of game** [3]
-     - Check whether the game has ended.
-
-11) **Movement Valid** [3]
+4) **Check Valid Movement** [3]
      - Check whether the movements of adventurer and computer are valid.
+     - Adventurers should move to a valid direction where it does not go out of bound or to the same position as the other adventurer.
+
+5) **Easy Mode**[1]
+     - Randomize the movement of the computer.
+ 
+6) **Hard Mode**[3]
+     - AI algorithm is used in hard mode.
+     - Target resource: the computer calculates a score for each available resource, then moves to the resources that maximize the chance of winning.
      
-12) **Target resource (Hard mode)** [3]
-     - Used in AI Algorithm for hard mode to calculate the best move for the computer.
-     
-14) **Check step valid (Hard mode)** [3]
-     - Used in AI Algorithm for hard mode to check whether the computer movement is valid.
-     
-15) **Process** [3]
-     - To continue the game until all resources on the gameboard have been collected.
      
 ### Output header file (store the output functions in a seperated header file) [5]
-   Functions used:
+   Features:
 1) **Display Game Rules** [4]
      - Retrieve and display the game rules upon entering the main.
      - game rules are stored in a separate file ("gamerule.txt").
 
 2) **Show round winner**
      - display the winner of the round.
+     - display the cumulated scores of adventurers.
 
 ### Leaderboard header file (store the leaderboard functions in a seperated header file) [5]
    Functions used:
