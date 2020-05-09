@@ -14,21 +14,6 @@
 
 using namespace std;
 
-#define PLAYER_1 "\xe2\x98\xba"
-#define PLAYER_2 "\xe2\x98\xbb"
-#define DIAMOND_1 "\xe2\x99\xa6"
-#define GOLD "\xE2\x9B\x83"
-
-
-int print_symbol() {
-    printf("\x1b[96m\xe2\x99\xa6\n");
-    printf("\x1b[93m\xE2\x9B\x83\n");
-    printf("\x1b[37m\xE2\x9B\x83\n");
-    printf("\x1b[33m\xE2\x9B\x83\n");
-    printf("\x1b[0m");
-    return 0;
-}
-
 int main() {
   Display_Gamerule();
   cout << endl;

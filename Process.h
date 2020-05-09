@@ -302,14 +302,20 @@ char hard_mode_move(int target_resource, coord* resource, player&p1, player&p2,c
   else if (vertical_move == '\0') {
     if (check_step_valid(horizontal_move,p2,p1,board_size,board))
       return horizontal_move;
-    else
-      return 'w';
+    else {
+      if (check_step_valid('w',p2,p1,board_size,board))
+        return 'w';
+      else return 's';
+    }
   }
   else if (horizontal_move == '\0') {
     if (check_step_valid(vertical_move,p2,p1,board_size,board))
       return vertical_move;
-    else
-      return 'd';
+    else{
+      if (check_step_valid('a',p2,p1,board_size,board))
+        return 'a';
+      else return 'd';
+    }
   }
 }
 
