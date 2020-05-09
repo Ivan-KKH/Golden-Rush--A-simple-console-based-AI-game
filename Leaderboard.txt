@@ -1,5 +1,5 @@
 540	adventurer	260	gw	110	adventurer	
-650	Ivan	480	Ivan	430	adventurer	
+650	Ivan	590	Ivan	480	Ivan	
 660	Ivan	290	Ivan	220	adventurer	
 320	adventurer	310	adventurer	300	adventurer	
 420	adventurer	410	adventurer	400	adventurer	

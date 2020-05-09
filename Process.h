@@ -35,11 +35,11 @@ void Display_Gameboard(char** board,int board_size, int p1_score,int p2_score, s
       if (board[i][j] == 'D')
         cout << "[" << "\x1b[96;107m\xe2\x99\xa6" << "\x1b[30;107m]";
       else if (board[i][j] == 'G')
-        cout  << "[" << "\x1b[93;107m\xE2\x9B\x83" << "\x1b[30;107m]";
+        cout  << "[" << "\x1b[93;107m\xe2\x99\x95" << "\x1b[30;107m]";
       else if (board[i][j] == 'S')
-        cout  << "[" << "\x1b[37;107m\xE2\x9B\x83" << "\x1b[30;107m]";
+        cout  << "[" << "\x1b[37;107m\xe2\x99\x95" << "\x1b[30;107m]";
       else if (board[i][j] == 'B')
-        cout  << "[" << "\x1b[33;107m\xE2\x9B\x83" << "\x1b[30;107m]";
+        cout  << "[" << "\x1b[31;107m\xe2\x99\x95" << "\x1b[30;107m]";
       else if (board[i][j] == '1')
         cout  << "[" << "\xe2\x98\xba" << "\x1b[30;107m]";
       else if (board[i][j] == '2')
