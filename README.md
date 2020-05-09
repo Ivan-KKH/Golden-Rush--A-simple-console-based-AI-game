@@ -12,6 +12,7 @@ Here is a table of the points carried by different resources:
 * Bronze: 10 points
 
 Display Sample of gameboard:
+
 ![image](Sample_Display.jpg)
 
 ## Features/Functions: (vis-a-vis 1-5 requirement) * Note: Code Requirements are represented in []
