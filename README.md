@@ -35,8 +35,9 @@ Display Sample of gameboard:
      - Randomize who has the first move in the game for the sake of fairness.
      
 2) **Scoring Update**
-     - Scores of adventurer and computer will be updated after each move, scores will be rewarded to adventurers who get to the places containing the resources.
-     -Each type of resource contains different points.
+     - Scores of adventurer and computer will be updated after each move. 
+     - Scores will be rewarded to adventurers who get to the places containing the resources.
+     - Each type of resource contains different points.
      
 3) **Randomize the resources and adventurer location** [1,3]
      - Number of resources will be randomized, ensuring there will be resources in the board.
