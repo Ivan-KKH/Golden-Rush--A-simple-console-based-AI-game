@@ -31,7 +31,7 @@ Display Sample of gameboard:
 
 ### Process header file(store the process functions in a seperated header file) [5]
    Features:
-1) **Who go first**
+1) **Who go first**[1]
      - Randomize who has the first move in the game for the sake of fairness.
      
 2) **Scoring Update**
@@ -67,8 +67,9 @@ Display Sample of gameboard:
      - display the cumulated scores of adventurers.
 
 ### Leaderboard header file (store the leaderboard functions in a seperated header file) [5]
-   Functions used:
+   Features:
 1) **Print Leaderboard** [4]
-     - Print the leaderboard after the game has ended.
-     - Top 3 scores of adventurers winners would be stored permanently.   
+     - Print the all-time leaderboard after the game has ended.
+     - Top 3 scores of adventurers winners would be stored permanently.  
+     - Facilitate comparisions between high-level adventurers.
     
