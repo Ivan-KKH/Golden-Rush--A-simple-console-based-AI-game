@@ -6,10 +6,10 @@ Group members: Kwok Ka Ho (3035689142), Lo Sai Kwan (3035686188)
 Golden Rush! a competitive hunting game. Two game modes are available, 1 player vs. computer or PVP. The adventurers battle on a n x n square gameboard, Resources are generated randomly on it. Players can control their adeventurers and get the resources on the gameboard. Each type of resource (Diamond/Gold/Silver/Bronze) carries different points. The round ends once all the resources have been collected. The player who gets more points wins the round, the game will end once one of the player wins two games in total, and the winner will be the one who scores more in total(Note: winners are determined by their cumulated scores, you may still lose even if you have won two of the three rounds). The top scorers will be permanently stored in a scoreboard table.
 
 Here is a table of the points carried by different resources:
-Diamond: 100 points
-Gold: 50 points
-Silver: 20 points
-Bronze: 10 points
+* Diamond: 100 points
+* Gold: 50 points
+* Silver: 20 points
+* Bronze: 10 points
 
 Display Sample of gameboard:
 ![image](Display_view.png)
